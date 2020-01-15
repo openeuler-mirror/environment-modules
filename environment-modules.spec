@@ -2,13 +2,13 @@
 
 Name:             environment-modules
 Version:          4.1.4
-Release:          2
+Release:          3
 Summary:          Provides dynamic modification of a user's environment
 License:          GPLv2+
 URL:              http://modules.sourceforge.net/
 Source0:          http://downloads.sourceforge.net/modules/modules-%{version}.tar.bz2
 
-BuildRequires:    gcc tcl-devel tclx-devel libX11-devel dejagnu sed procps hostname man less
+BuildRequires:    gcc tcl-devel libX11-devel dejagnu sed procps hostname man less
 Requires:         tcl sed procps man less
 Requires(post):   %{_sbindir}/update-alternatives
 Requires(postun): %{_sbindir}/update-alternatives
@@ -122,5 +122,8 @@ fi
 %{_mandir}/man4/modulefile-c.4.gz
 
 %changelog
+* Wed Jan 15 2020 openEuler Buildteam <buildteam@openeuler.org> - 4.1.4-3
+- Delete unneeded build requires
+
 * Tue Nov 05 2019 Lijin Yang <yanglijin@huawei.com> - 4.1.4-2
 - Init package
