@@ -2,13 +2,13 @@
 
 Name:             environment-modules
 Version:          4.1.4
-Release:          3
+Release:          4
 Summary:          Provides dynamic modification of a user's environment
 License:          GPLv2+
 URL:              http://modules.sourceforge.net/
 Source0:          http://downloads.sourceforge.net/modules/modules-%{version}.tar.bz2
 
-BuildRequires:    gcc tcl-devel libX11-devel dejagnu sed procps hostname man less
+BuildRequires:    gcc tcl-devel libX11-devel dejagnu sed procps hostname man less csh
 Requires:         tcl sed procps man less
 Requires(post):   %{_sbindir}/update-alternatives
 Requires(postun): %{_sbindir}/update-alternatives
@@ -122,6 +122,9 @@ fi
 %{_mandir}/man4/modulefile-c.4.gz
 
 %changelog
+* Tue May 26 2020 Captain Wei <captain.a.wei@gmail.com> - 4.1.4-4
+- Add csh build requires
+
 * Wed Jan 15 2020 openEuler Buildteam <buildteam@openeuler.org> - 4.1.4-3
 - Delete unneeded build requires
 
