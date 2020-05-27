@@ -2,11 +2,12 @@
 
 Name:             environment-modules
 Version:          4.1.4
-Release:          3
+Release:          4
 Summary:          Provides dynamic modification of a user's environment
 License:          GPLv2+
 URL:              http://modules.sourceforge.net/
 Source0:          http://downloads.sourceforge.net/modules/modules-%{version}.tar.bz2
+Patch0001:        openeuler-20200527.patch
 
 BuildRequires:    gcc tcl-devel libX11-devel dejagnu sed procps hostname man less
 Requires:         tcl sed procps man less
@@ -122,6 +123,9 @@ fi
 %{_mandir}/man4/modulefile-c.4.gz
 
 %changelog
+* Wed May 27 2020 Captain Wei <captain.a.wei@gmail.com> - 4.1.4-4
+- Disable uname test tempoary
+
 * Wed Jan 15 2020 openEuler Buildteam <buildteam@openeuler.org> - 4.1.4-3
 - Delete unneeded build requires
 
