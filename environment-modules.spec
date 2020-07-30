@@ -1,8 +1,9 @@
 %define debug_package %{nil}
+%global vimdatadir %{_datadir}/vim/vimfiles
 
 Name:             environment-modules
-Version:          4.1.4
-Release:          4
+Version:          4.5.0
+Release:          1
 Summary:          Provides dynamic modification of a user's environment
 License:          GPLv2+
 URL:              http://modules.sourceforge.net/
@@ -10,7 +11,7 @@ Source0:          http://downloads.sourceforge.net/modules/modules-%{version}.ta
 Patch0001:        openeuler-20200527.patch
 
 BuildRequires:    gcc tcl-devel libX11-devel dejagnu sed procps hostname man less
-Requires:         tcl sed procps man less
+Requires:         tcl sed procps man less vim-filesystem
 Requires(post):   %{_sbindir}/update-alternatives
 Requires(postun): %{_sbindir}/update-alternatives
 Provides:         environment(modules)
@@ -47,7 +48,13 @@ Help document for the Environment Modules package.
 %configure --prefix=%{_datadir}/Modules --bindir=%{_datadir}/Modules/bin      \
            --libexecdir=%{_datadir}/Modules/libexec                           \
            --disable-compat-version  --enable-dotmodulespath                  \
-           --docdir=%{_docdir}/%{name} --with-quarantine-vars=LD_LIBRARY_PATH \
+           --docdir=%{_docdir}/%{name} --with-quarantine-vars='LD_LIBRARY_PATH LD_PRELOAD' \
+           --libdir=%{_libdir} \
+           --etcdir=%{_sysconfdir}/%{name} \
+           --vimdatadir=%{vimdatadir} \
+           --disable-set-shell-startup \
+           --with-python=/usr/bin/python3 \
+           --with-initconf-in=etcdir \
            --with-modulepath=%{_datadir}/Modules/modulefiles:%{_sysconfdir}/modulefiles:%{_datadir}/modulefiles
 %make_build
 
@@ -68,8 +75,8 @@ mv    $RPM_BUILD_ROOT%{_mandir}/man4/modulefile{,-c}.4
 rm -f $RPM_BUILD_ROOT%{_docdir}/%{name}/*
 
 install -D -p -m 644 contrib/rpm/macros.%{name} $RPM_BUILD_ROOT/%{_rpmconfigdir}/macros.d/macros.%{name}
-install -p contrib/scripts/createmodule{.sh,.py} $RPM_BUILD_ROOT%{_datadir}/Modules/bin
-sed -i -e 1s,/usr/bin/python,/usr/bin/python3,  $RPM_BUILD_ROOT%{_datadir}/Modules/bin/createmodule.py
+install -p script/createmodule{.sh,.py} $RPM_BUILD_ROOT%{_datadir}/Modules/bin
+
 
 %check
 make test
@@ -101,6 +108,7 @@ fi
 %license COPYING.GPLv2
 %{_sysconfdir}/modulefiles
 %{_bindir}/envml
+%{_libdir}/libtclenvmodules.so
 %dir %{_datadir}/Modules
 %dir %{_datadir}/Modules/libexec
 %dir %{_datadir}/Modules/init
@@ -108,8 +116,11 @@ fi
 %{_datadir}/Modules/libexec/modulecmd.tcl
 %{_datadir}/Modules/modulefiles
 %{_datadir}/modulefiles
-%config(noreplace) %{_datadir}/Modules/init/*
-%config(noreplace) %{_datadir}/Modules/init/.modulespath
+%{_datadir}/Modules/init/*
+%dir %{_sysconfdir}/%{name}
+%config(noreplace) %{_sysconfdir}/%{name}/initrc
+%config(noreplace) %{_sysconfdir}/%{name}/modulespath
+%config(noreplace) %{_sysconfdir}/%{name}/siteconfig.tcl
 %{_rpmconfigdir}/macros.d/macros.%{name}
 %ghost %{_sysconfdir}/profile.d/modules.csh
 %ghost %{_sysconfdir}/profile.d/modules.sh
@@ -119,10 +130,17 @@ fi
 %doc ChangeLog README doc/build/{NEWS.txt,MIGRATING.txt,diff_v3_v4.txt} doc/example.txt
 %ghost %{_mandir}/man1/module.1.gz
 %ghost %{_mandir}/man4/modulefile.4.gz
+%{_mandir}/man1/ml.1.gz
 %{_mandir}/man1/module-c.1.gz
 %{_mandir}/man4/modulefile-c.4.gz
+%{vimdatadir}/ftdetect/modulefile.vim
+%{vimdatadir}/ftplugin/modulefile.vim
+%{vimdatadir}/syntax/modulefile.vim
 
 %changelog
+* Mon Jul 27 2020 xinghe <xinghe1@huawei.com> - 4.5.1-1
+- update version to 4.5.1
+
 * Wed May 27 2020 Captain Wei <captain.a.wei@gmail.com> - 4.1.4-4
 - Disable uname test tempoary
 
