@@ -1,8 +1,8 @@
 %define debug_package %{nil}
 
 Name:             environment-modules
-Version:          4.1.4
-Release:          3
+Version:          4.2.5
+Release:          1
 Summary:          Provides dynamic modification of a user's environment
 License:          GPLv2+
 URL:              http://modules.sourceforge.net/
@@ -122,6 +122,9 @@ fi
 %{_mandir}/man4/modulefile-c.4.gz
 
 %changelog
+* Mon Aug 8 31 2020 wuchaochao <wuchaochao4@huawei.com> - 4.2.5-1
+- Update package version to 4.2.5
+
 * Wed Jan 15 2020 openEuler Buildteam <buildteam@openeuler.org> - 4.1.4-3
 - Delete unneeded build requires
 
