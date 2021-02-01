@@ -2,7 +2,7 @@
 %global vimdatadir %{_datadir}/vim/vimfiles
 
 Name:             environment-modules
-Version:          4.5.0
+Version:          4.6.1
 Release:          1
 Summary:          Provides dynamic modification of a user's environment
 License:          GPLv2+
@@ -138,6 +138,9 @@ fi
 %{vimdatadir}/syntax/modulefile.vim
 
 %changelog
+* Mon Feb 1 2021 liudabo <liudabo1@huawei.com> - 4.6.1-1
+- upgrade version to 4.6.1
+
 * Mon Jul 27 2020 xinghe <xinghe1@huawei.com> - 4.5.1-1
 - update version to 4.5.1
 
