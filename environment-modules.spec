@@ -3,7 +3,7 @@
 
 Name:             environment-modules
 Version:          4.6.1
-Release:          1
+Release:          2
 Summary:          Provides dynamic modification of a user's environment
 License:          GPLv2+
 URL:              http://modules.sourceforge.net/
@@ -77,6 +77,7 @@ rm -f $RPM_BUILD_ROOT%{_docdir}/%{name}/*
 install -D -p -m 644 contrib/rpm/macros.%{name} $RPM_BUILD_ROOT/%{_rpmconfigdir}/macros.d/macros.%{name}
 install -p script/createmodule{.sh,.py} $RPM_BUILD_ROOT%{_datadir}/Modules/bin
 
+strip $RPM_BUILD_ROOT%{_libdir}/*.so || true
 
 %check
 make test
@@ -138,6 +139,9 @@ fi
 %{vimdatadir}/syntax/modulefile.vim
 
 %changelog
+* Sat Mar 20 2021 shixuantong <shixuantong@huawei.com> - 4.6.1-2
+- strip libtclenvmodules.so
+
 * Mon Feb 1 2021 liudabo <liudabo1@huawei.com> - 4.6.1-1
 - upgrade version to 4.6.1
 
