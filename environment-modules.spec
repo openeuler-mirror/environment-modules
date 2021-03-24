@@ -1,9 +1,8 @@
-%define debug_package %{nil}
 %global vimdatadir %{_datadir}/vim/vimfiles
 
 Name:             environment-modules
 Version:          4.6.1
-Release:          2
+Release:          3
 Summary:          Provides dynamic modification of a user's environment
 License:          GPLv2+
 URL:              http://modules.sourceforge.net/
@@ -77,8 +76,6 @@ rm -f $RPM_BUILD_ROOT%{_docdir}/%{name}/*
 install -D -p -m 644 contrib/rpm/macros.%{name} $RPM_BUILD_ROOT/%{_rpmconfigdir}/macros.d/macros.%{name}
 install -p script/createmodule{.sh,.py} $RPM_BUILD_ROOT%{_datadir}/Modules/bin
 
-strip $RPM_BUILD_ROOT%{_libdir}/*.so || true
-
 %check
 make test
 
@@ -139,6 +136,9 @@ fi
 %{vimdatadir}/syntax/modulefile.vim
 
 %changelog
+* Wed Mar 24 2021 shixuantong <shixuantong@huawei.com> - 4.6.1-3
+- add debuginfo and debugsource
+
 * Sat Mar 20 2021 shixuantong <shixuantong@huawei.com> - 4.6.1-2
 - strip libtclenvmodules.so
 
