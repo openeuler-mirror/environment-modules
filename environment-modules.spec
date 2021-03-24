@@ -1,9 +1,8 @@
-%define debug_package %{nil}
 %global vimdatadir %{_datadir}/vim/vimfiles
 
 Name:             environment-modules
 Version:          4.6.1
-Release:          1
+Release:          2
 Summary:          Provides dynamic modification of a user's environment
 License:          GPLv2+
 URL:              http://modules.sourceforge.net/
@@ -138,6 +137,9 @@ fi
 %{vimdatadir}/syntax/modulefile.vim
 
 %changelog
+* Wed Mar 24 2021 shixuantong <shixuantong@huawei.com> - 4.6.1-2
+- add debuginfo and debugsource
+
 * Mon Feb 1 2021 liudabo <liudabo1@huawei.com> - 4.6.1-1
 - upgrade version to 4.6.1
 
