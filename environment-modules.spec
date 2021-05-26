@@ -2,12 +2,12 @@
 
 Name:             environment-modules
 Version:          4.2.5
-Release:          1
+Release:          2
 Summary:          Provides dynamic modification of a user's environment
 License:          GPLv2+
 URL:              http://modules.sourceforge.net/
 Source0:          http://downloads.sourceforge.net/modules/modules-%{version}.tar.bz2
-
+Patch0001:        0001-test-deps6.patch 
 BuildRequires:    gcc tcl-devel libX11-devel dejagnu sed procps hostname man less
 Requires:         tcl sed procps man less
 Requires(post):   %{_sbindir}/update-alternatives
@@ -122,6 +122,9 @@ fi
 %{_mandir}/man4/modulefile-c.4.gz
 
 %changelog
+* Wed May 26 2021 caodongxia <caodongxia@huawei.com> - 4.2.5-2
+- Fix test 375-deps6.exp
+
 * Mon Aug 8 31 2020 wuchaochao <wuchaochao4@huawei.com> - 4.2.5-1
 - Update package version to 4.2.5
 
