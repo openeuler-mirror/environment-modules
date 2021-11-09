@@ -2,13 +2,14 @@
 
 Name:             environment-modules
 Version:          4.2.5
-Release:          1
+Release:          2
 Summary:          Provides dynamic modification of a user's environment
 License:          GPLv2+
 URL:              http://modules.sourceforge.net/
 Source0:          http://downloads.sourceforge.net/modules/modules-%{version}.tar.bz2
 
 BuildRequires:    gcc tcl-devel libX11-devel dejagnu sed procps hostname man less
+Patch001:         0001-ts-fix-msg-block-err-tests-with-regexp-special-chars.patch
 Requires:         tcl sed procps man less
 Requires(post):   %{_sbindir}/update-alternatives
 Requires(postun): %{_sbindir}/update-alternatives
@@ -122,7 +123,10 @@ fi
 %{_mandir}/man4/modulefile-c.4.gz
 
 %changelog
-* Mon Aug 8 31 2020 wuchaochao <wuchaochao4@huawei.com> - 4.2.5-1
+* Mon Nov 08 2021 chenchen <chen_aka_jan@163.com> - 4.2.5-2
+- fix build test error
+
+* Mon Aug 31 2020 wuchaochao <wuchaochao4@huawei.com> - 4.2.5-1
 - Update package version to 4.2.5
 
 * Wed Jan 15 2020 openEuler Buildteam <buildteam@openeuler.org> - 4.1.4-3
