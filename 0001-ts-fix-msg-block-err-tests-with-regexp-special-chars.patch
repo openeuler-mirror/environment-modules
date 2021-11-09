@@ -1,0 +1,74 @@
+From 75c3ef0d4a6ca12ce5572fbe9256b34325879a1a Mon Sep 17 00:00:00 2001
+From: Xavier Delaruelle <xavier.delaruelle@cea.fr>
+Date: Wed, 5 Feb 2020 07:01:57 +0100
+Subject: [PATCH] ts: fix msg block err tests with regexp special chars
+
+---
+ testsuite/modules.00-init/005-init_ts.exp | 5 +++++
+ testsuite/modules.50-cmds/375-deps6.exp   | 2 +-
+ testsuite/modules.50-cmds/376-switch.exp  | 6 +++---
+ 3 files changed, 9 insertions(+), 4 deletions(-)
+
+diff --git a/testsuite/modules.00-init/005-init_ts.exp b/testsuite/modules.00-init/005-init_ts.exp
+index 5b914fd3..dbe3b2a8 100644
+--- a/testsuite/modules.00-init/005-init_ts.exp
++++ b/testsuite/modules.00-init/005-init_ts.exp
+@@ -491,6 +491,11 @@ if {$xrdb eq ""} {
+ set domainname [auto_execok domainname]
+ set domainname_warn "$error_msgs: Command 'domainname' cannot be found"
+ 
++# escape regexp chars in string
++proc escre {str} {
++    return [regsub -all "\(\[.+?\]\)" $str {\\\1}]
++}
++
+ #
+ #  Set up the config-file variable if possible
+ #
+diff --git a/testsuite/modules.50-cmds/375-deps6.exp b/testsuite/modules.50-cmds/375-deps6.exp
+index 77a85ea4..bcbc09a0 100644
+--- a/testsuite/modules.50-cmds/375-deps6.exp
++++ b/testsuite/modules.50-cmds/375-deps6.exp
+@@ -845,7 +845,7 @@ lappend ans [list setpath MODULES_LMPREREQ mtf&$mp/msf]
+ lappend ans [list setpath MODULES_LMCONFLICT $mp/msf&$mp/mtf]
+ lappend ans [list setpath MODULES_LMNOTUASKED $mp/msf]
+ #FIXME: top load messages for mtf should contain a warning to the forced conflict with $mp/msf
+-testouterr_cmd_re sh {load --force mtf} $ans [msg_load $mpre/msf [err_conloif $mpre/mtf]]\n\n[msg_load mtf "Loading requirement: $mpre/msf"]
++testouterr_cmd_re sh {load --force mtf} $ans [escre [msg_load $mp/msf [err_conloif $mp/mtf]]\n\n[msg_load mtf "Loading requirement: $mp/msf"]]
+ 
+ 
+ #
+diff --git a/testsuite/modules.50-cmds/376-switch.exp b/testsuite/modules.50-cmds/376-switch.exp
+index ebd54be2..8b4cddef 100644
+--- a/testsuite/modules.50-cmds/376-switch.exp
++++ b/testsuite/modules.50-cmds/376-switch.exp
+@@ -633,7 +633,7 @@ testouterr_cmd_re sh {load --no-auto swk} ERR [join $tserr \n]
+ # switched-off module produces a module error when unloaded
+ setenv_loaded_module [list swn] [list $mp/swn]
+ 
+-set tserr [list {load swl} {unload swn} \n[msg_unload swn "$moderr_msgs: invalid command name \"bad\"" "  In '$mpre/swn'" $err_contact] \n[msg_load swl [err_swoff swn] [err_conun swn]]]
++set tserr [escre [list {load swl} {unload swn} \n[msg_unload swn "$moderr_msgs: invalid command name \"bad\"" "  In '$mp/swn'" $err_contact] \n[msg_load swl [err_swoff swn] [err_conun swn]]]]
+ testouterr_cmd_re sh {load --auto swl} ERR [join $tserr \n]
+ testouterr_cmd_re sh {load --no-auto swl} ERR [join $tserr \n]
+ 
+@@ -641,7 +641,7 @@ testouterr_cmd_re sh {load --no-auto swl} ERR [join $tserr \n]
+ # switched-on module produces a module error when loaded
+ unsetenv_loaded_module
+ 
+-set tserr [list {load swm} {load swn} \n[msg_load swn "$moderr_msgs: invalid command name \"bad\"" "  In '$mpre/swn'" $err_contact] \n[msg_load swm [err_swon swn] [err_reqlo swn]]]
++set tserr [escre [list {load swm} {load swn} \n[msg_load swn "$moderr_msgs: invalid command name \"bad\"" "  In '$mp/swn'" $err_contact] \n[msg_load swm [err_swon swn] [err_reqlo swn]]]]
+ testouterr_cmd_re sh {load --auto swm} ERR [join $tserr \n]
+ testouterr_cmd_re sh {load --no-auto swm} ERR [join $tserr \n]
+ 
+@@ -657,7 +657,7 @@ lappend ans [list unsetpath MODULES_LMCONFLICT]
+ lappend ans [list setpath _LMFILES_ $mp/swn]
+ lappend ans [list setpath LOADEDMODULES swn]
+ lappend ans [list ERR]
+-set tserr [list {unload swm} {unload swn} \n[msg_unload swn "$moderr_msgs: invalid command name \"bad\"" "  In '$mpre/swn'" $err_contact] \n[msg_top_unload swm {} {} {} [err_urequn swn]]]
++set tserr [escre [list {unload swm} {unload swn} \n[msg_unload swn "$moderr_msgs: invalid command name \"bad\"" "  In '$mp/swn'" $err_contact] \n[msg_top_unload swm {} {} {} [err_urequn swn]]]]
+ testouterr_cmd_re sh {unload --auto swm} $ans [join $tserr \n]
+ set ans [list]
+ lappend ans [list setpath LOADEDMODULES swn]
+-- 
+2.30.0
+
