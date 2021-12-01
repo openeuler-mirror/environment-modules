@@ -1,8 +1,8 @@
-%global vimdatadir %{_datadir}/vim/vimfiles
+%global vimdatadir %{_datadir}/Modules/share/vim/vimfiles
 
 Name:             environment-modules
-Version:          4.6.1
-Release:          2
+Version:          5.0.1
+Release:          1
 Summary:          Provides dynamic modification of a user's environment
 License:          GPLv2+
 URL:              http://modules.sourceforge.net/
@@ -74,7 +74,6 @@ mv    $RPM_BUILD_ROOT%{_mandir}/man4/modulefile{,-c}.4
 rm -f $RPM_BUILD_ROOT%{_docdir}/%{name}/*
 
 install -D -p -m 644 contrib/rpm/macros.%{name} $RPM_BUILD_ROOT/%{_rpmconfigdir}/macros.d/macros.%{name}
-install -p script/createmodule{.sh,.py} $RPM_BUILD_ROOT%{_datadir}/Modules/bin
 
 
 %check
@@ -124,9 +123,12 @@ fi
 %ghost %{_sysconfdir}/profile.d/modules.csh
 %ghost %{_sysconfdir}/profile.d/modules.sh
 %ghost %{_bindir}/modulecmd
+%{vimdatadir}/ftdetect/modulefile.vim
+%{vimdatadir}/ftplugin/modulefile.vim
+%{vimdatadir}/syntax/modulefile.vim
 
 %files help
-%doc ChangeLog README doc/build/{NEWS.txt,MIGRATING.txt,diff_v3_v4.txt} doc/example.txt
+%doc ChangeLog README doc/build/{NEWS.txt,MIGRATING.txt,diff_v3_v4.txt}
 %ghost %{_mandir}/man1/module.1.gz
 %ghost %{_mandir}/man4/modulefile.4.gz
 %{_mandir}/man1/ml.1.gz
@@ -137,6 +139,9 @@ fi
 %{vimdatadir}/syntax/modulefile.vim
 
 %changelog
+* Wed Dec 1 2021 zoulin <zoulin13@huawei.com> - 5.0.1-1
+- upgrade version to 5.0.1
+
 * Wed Mar 24 2021 shixuantong <shixuantong@huawei.com> - 4.6.1-2
 - add debuginfo and debugsource
 
