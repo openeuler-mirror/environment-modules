@@ -9,4 +9,4 @@ diff -ur modules-4.1.4/testsuite/modules.50-cmds/095-uname.exp modules-4.1.4-202
 +foreach field [list nodename] {
      if {$uname ne ""} {
          set ans [list]
-         lappend ans [list set testsuite [set "u_$field"] noescval]
+         lappend ans [list set _LMFILES_ "$modulefile/$field"]
