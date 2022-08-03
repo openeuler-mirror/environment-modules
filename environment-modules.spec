@@ -2,7 +2,7 @@
 
 Name:             environment-modules
 Version:          5.0.1
-Release:          1
+Release:          2
 Summary:          Provides dynamic modification of a user's environment
 License:          GPLv2+
 URL:              http://modules.sourceforge.net/
@@ -134,11 +134,11 @@ fi
 %{_mandir}/man1/ml.1.gz
 %{_mandir}/man1/module-c.1.gz
 %{_mandir}/man4/modulefile-c.4.gz
-%{vimdatadir}/ftdetect/modulefile.vim
-%{vimdatadir}/ftplugin/modulefile.vim
-%{vimdatadir}/syntax/modulefile.vim
 
 %changelog
+* Wed Aug 3 2022 zoulin <zoulin13@h-partners.com> - 5.0.1-2
+- delete duplicate files
+
 * Wed Dec 29 2021 zoulin <zoulin13@huawei.com> - 5.0.1-1
 - upgrade version to 5.0.1
 
