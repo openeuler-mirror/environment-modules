@@ -1,8 +1,8 @@
 %global vimdatadir %{_datadir}/Modules/share/vim/vimfiles
 
 Name:             environment-modules
-Version:          5.0.1
-Release:          2
+Version:          5.1.1
+Release:          1
 Summary:          Provides dynamic modification of a user's environment
 License:          GPLv2+
 URL:              http://modules.sourceforge.net/
@@ -136,6 +136,9 @@ fi
 %{_mandir}/man4/modulefile-c.4.gz
 
 %changelog
+* Wed Aug 3 2022 panxiaohe <panxh.life@foxmail.com> - 5.1.1-1
+- upgrade version to 5.1.1
+
 * Mon Jul 18 2022 zoulin <zoulin13@h-partners.com> - 5.0.1-2
 - delete duplicate files
 
