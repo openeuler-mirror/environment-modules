@@ -2,7 +2,7 @@
 
 Name:             environment-modules
 Version:          4.2.5
-Release:          2
+Release:          3
 Summary:          Provides dynamic modification of a user's environment
 License:          GPLv2+
 URL:              http://modules.sourceforge.net/
@@ -122,10 +122,13 @@ fi
 %{_mandir}/man4/modulefile-c.4.gz
 
 %changelog
+* Thu Aug 25 2022 zoulin <zoulin13@h-partners.com> - 4.2.5-3
+- Modify changelog format
+
 * Wed May 26 2021 caodongxia <caodongxia@huawei.com> - 4.2.5-2
 - Fix test 375-deps6.exp
 
-* Mon Aug 8 31 2020 wuchaochao <wuchaochao4@huawei.com> - 4.2.5-1
+* Mon Aug 31 2020 wuchaochao <wuchaochao4@huawei.com> - 4.2.5-1
 - Update package version to 4.2.5
 
 * Wed Jan 15 2020 openEuler Buildteam <buildteam@openeuler.org> - 4.1.4-3
