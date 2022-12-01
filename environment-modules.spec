@@ -2,12 +2,11 @@
 
 Name:             environment-modules
 Version:          5.1.1
-Release:          1
+Release:          2
 Summary:          Provides dynamic modification of a user's environment
 License:          GPLv2+
 URL:              http://modules.sourceforge.net/
 Source0:          http://downloads.sourceforge.net/modules/modules-%{version}.tar.bz2
-Patch0001:        openeuler-20200527.patch
 
 BuildRequires:    gcc tcl-devel libX11-devel dejagnu sed procps hostname man less
 Requires:         tcl sed procps man less vim-filesystem
@@ -136,6 +135,9 @@ fi
 %{_mandir}/man4/modulefile-c.4.gz
 
 %changelog
+* Thu Dec 1 2022 zhoupengcheng <zhoupengcheng11@huawei.com> - 5.1.1-2
+- delete unnecessary patch
+
 * Wed Aug 3 2022 panxiaohe <panxh.life@foxmail.com> - 5.1.1-1
 - upgrade version to 5.1.1
 
