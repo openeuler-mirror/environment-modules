@@ -2,7 +2,7 @@
 
 Name:             environment-modules
 Version:          5.1.1
-Release:          2
+Release:          3
 Summary:          Provides dynamic modification of a user's environment
 License:          GPLv2+
 URL:              http://modules.sourceforge.net/
@@ -54,7 +54,7 @@ Help document for the Environment Modules package.
            --with-python=/usr/bin/python3 \
            --with-initconf-in=etcdir \
            --with-modulepath=%{_datadir}/Modules/modulefiles:%{_sysconfdir}/modulefiles:%{_datadir}/modulefiles
-%make_build
+%make_build CC?=gcc
 
 %install
 %make_install
@@ -135,6 +135,9 @@ fi
 %{_mandir}/man4/modulefile-c.4.gz
 
 %changelog
+* Sun Apr 23 2023 Xiaoya Huang <huangxiaoya@iscas.ac.cn> - 5.1.1-3
+- Fix CC compiler support
+
 * Thu Dec 1 2022 zhoupengcheng <zhoupengcheng11@huawei.com> - 5.1.1-2
 - delete unnecessary patch
 
